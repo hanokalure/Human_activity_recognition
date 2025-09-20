@@ -19,12 +19,29 @@ def main():
     # Set model path if not already set
     if "PHASE5_MODEL_PATH" not in os.environ:
         model_path = project_root / "models" / "phase5" / "phase5_best_model.pth"
+        
         if model_path.exists():
             os.environ["PHASE5_MODEL_PATH"] = str(model_path)
             print(f"✅ Using model: {model_path}")
         else:
-            print(f"❌ Model not found at {model_path}")
-            return 1
+            print(f"⚠️  Model not found at {model_path}")
+            print(f"📥 Attempting to download model...")
+            
+            # Try to download model
+            try:
+                from .download_model import download_model
+                downloaded_path = download_model()
+                
+                if downloaded_path:
+                    os.environ["PHASE5_MODEL_PATH"] = downloaded_path
+                    print(f"✅ Using downloaded model: {downloaded_path}")
+                else:
+                    print(f"❌ Model download failed")
+                    print(f"💡 Set MODEL_DOWNLOAD_URL environment variable")
+                    return 1
+            except ImportError as e:
+                print(f"❌ Could not import download_model: {e}")
+                return 1
     
     # Import and run uvicorn
     try:
