@@ -55,9 +55,10 @@ def main():
     print(f"📖 Docs: http://127.0.0.1:{port}/docs")
 
     try:
+        # Use 0.0.0.0 to accept connections from any IP (including Vercel via your public IP)
         uvicorn.run(
             "backend.main:app",
-            host="127.0.0.1",
+            host="0.0.0.0",  # Changed from 127.0.0.1 to accept external connections
             port=port,
             reload=True,
             log_level="info",
