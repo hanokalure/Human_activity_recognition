@@ -1,4 +1,4 @@
-# 🎬 Daily Activities Video Recognition System
+# 🎬 Human Activity Recognition System
 
 A comprehensive computer vision system for recognizing daily human activities using deep learning models trained on UCF-101 and Kinetics-400 datasets.
 
