@@ -56,11 +56,14 @@ def main():
         print("📖 API docs: http://localhost:8000/docs")
         print("🔄 Press Ctrl+C to stop")
         
+        # Use Render's PORT environment variable (default 10000)
+        port = int(os.environ.get("PORT", "10000"))
+        
         uvicorn.run(
             "backend.main:app", 
             host="0.0.0.0", 
-            port=8000, 
-            reload=True,
+            port=port, 
+            reload=False,  # Disable reload in production
             log_level="info"
         )
     except ImportError:
