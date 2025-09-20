@@ -1,0 +1,66 @@
+services:
+  # Backend API Service
+  - type: web
+    name: human-activity-api
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        generateValue: true
+      - key: HOST
+        value: 0.0.0.0
+      - key: ENVIRONMENT
+        value: production
+      - key: MODEL_PHASE
+        value: phase5
+      - key: MODEL_PATH
+        value: ../outputs/checkpoints/best_model.pth
+      - key: INFERENCE_DEVICE
+        value: cpu
+      - key: DEBUG
+        value: false
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: MAX_VIDEO_SIZE_MB
+        value: 100
+      - key: REQUEST_TIMEOUT
+        value: 300
+
+  # Frontend Static Site
+  - type: static
+    name: human-activity-frontend
+    rootDir: frontend
+    buildCommand: |
+      if [ -f package.json ]; then
+        npm ci && npm run build
+      else
+        echo "No package.json found, skipping frontend build"
+      fi
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      - path: /static/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: human-activity-api
+          property: host
+
+# Optional: Add a database for storing results
+# - type: pserv
+#   name: human-activity-db
+#   env: postgresql
+#   plan: free
+#   ipAllowList: []
