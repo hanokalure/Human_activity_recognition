@@ -21,7 +21,7 @@ services:
       - key: PHASE5_MODEL_PATH
         value: ../outputs/checkpoints/best_model.pth
       - key: MODEL_DOWNLOAD_URL
-        value: ""  # Set this to your hosted model URL
+        value: "https://drive.google.com/uc?export=download&id=1a6JVuSIGxlKTX1ejyDXinsr8AScODPf5"
       - key: INFERENCE_DEVICE
         value: cpu
       - key: DEBUG
