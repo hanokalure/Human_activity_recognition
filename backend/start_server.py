@@ -16,6 +16,11 @@ def main():
     project_root = Path(__file__).parent.parent
     os.chdir(project_root)
     
+    # Debug: Check Python and environment
+    print(f"🐍 Python version: {sys.version}")
+    print(f"📁 Working directory: {os.getcwd()}")
+    print(f"📦 Python path: {sys.path[:3]}...")  # First 3 entries
+    
     # Set model path if not already set
     if "PHASE5_MODEL_PATH" not in os.environ:
         model_path = project_root / "models" / "phase5" / "phase5_best_model.pth"
@@ -71,8 +76,13 @@ def main():
             reload=False,  # Disable reload in production
             log_level="info"
         )
-    except ImportError:
-        print("❌ uvicorn not installed. Install with: pip install uvicorn[standard]")
+    except ImportError as e:
+        print(f"❌ uvicorn not installed: {e}")
+        print("💡 This usually means:")
+        print("   1. requirements.txt wasn't installed properly")
+        print("   2. Python is using wrong environment")
+        print("   3. Build failed silently")
+        print("🔧 Solution: Check build logs and ensure 'pip install -r requirements.txt' succeeded")
         return 1
     except KeyboardInterrupt:
         print("\n👋 Server stopped")
