@@ -43,8 +43,31 @@ def download_model():
         # Create model directory
         model_dir.mkdir(parents=True, exist_ok=True)
         
-        # Download with progress
-        response = requests.get(model_url, stream=True, timeout=600)  # 10 min timeout
+        # Handle Google Drive downloads (they can redirect)
+        session = requests.Session()
+        
+        # First request to get any redirect
+        print("📡 Making initial request...")
+        response = session.get(model_url, stream=True, timeout=600)
+        
+        # Google Drive sometimes serves HTML warning page for large files
+        if 'text/html' in response.headers.get('content-type', ''):
+            print("⚠️  Detected HTML response, looking for direct download link...")
+            # Try to find the confirmation link
+            content = response.text
+            if 'confirm=' in content:
+                import re
+                # Extract the confirmation token
+                confirm_match = re.search(r'confirm=([^&]+)', content)
+                if confirm_match:
+                    confirm_token = confirm_match.group(1)
+                    # Build new URL with confirmation
+                    if 'id=' in model_url:
+                        file_id = model_url.split('id=')[1]
+                        confirm_url = f"https://drive.google.com/uc?export=download&confirm={confirm_token}&id={file_id}"
+                        print(f"🔄 Retrying with confirmation: {confirm_url[:80]}...")
+                        response = session.get(confirm_url, stream=True, timeout=600)
+        
         response.raise_for_status()
         
         total_size = int(response.headers.get('content-length', 0))
