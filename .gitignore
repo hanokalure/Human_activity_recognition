@@ -1,0 +1,185 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Conda environment (THIS IS YOUR CASE - exclude conda files)
+conda-meta/
+condabin/
+envs/
+pkgs/
+Scripts/
+include/
+Lib/
+Library/
+libs/
+Menu/
+share/
+shell/
+Tools/
+DLLs/
+etc/
+*.dll
+*.exe
+*.pdb
+*.bat
+.condarc
+.nonadmin
+Uninstall-Anaconda3.exe
+cwp.py
+pre_uninstall.bat
+*LICENSE*.txt
+EULA.txt
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Machine Learning / AI specific
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.model
+*.joblib
+
+# Large datasets (exclude but keep structure)
+/data/
+!/data/.gitkeep
+/datasets/
+!/datasets/.gitkeep
+
+# Model outputs and checkpoints
+/outputs/
+!/outputs/.gitkeep
+/checkpoints/
+!/checkpoints/.gitkeep
+/models/
+!/models/.gitkeep
+
+# Video files (usually too large)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+*.wmv
+*.m4v
+
+# Image datasets (usually too large)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+!/assets/**
+
+# Logs
+*.log
+logs/
+*.out
+
+# Node modules (for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Frontend build outputs
+/frontend/dist/
+/frontend/build/
+/frontend/.expo/
+/frontend/.next/
+/frontend/out/
+
+# Package lock files (keep one, choose npm or yarn)
+# yarn.lock
+package-lock.json
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Archives (usually data)
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Custom project specific
+outputtestvideo/
+analysis/
