@@ -29,7 +29,12 @@ def main():
             
             # Try to download model
             try:
-                from .download_model import download_model
+                # Add backend directory to path for absolute import
+                backend_dir = Path(__file__).parent
+                if str(backend_dir) not in sys.path:
+                    sys.path.insert(0, str(backend_dir))
+                
+                from download_model import download_model
                 downloaded_path = download_model()
                 
                 if downloaded_path:

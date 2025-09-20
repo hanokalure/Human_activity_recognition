@@ -5,7 +5,7 @@ services:
     env: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: python main.py
+    startCommand: python start_server.py
     plan: free
     autoDeploy: true
     healthCheckPath: /health
@@ -18,8 +18,10 @@ services:
         value: production
       - key: MODEL_PHASE
         value: phase5
-      - key: MODEL_PATH
+      - key: PHASE5_MODEL_PATH
         value: ../outputs/checkpoints/best_model.pth
+      - key: MODEL_DOWNLOAD_URL
+        value: ""  # Set this to your hosted model URL
       - key: INFERENCE_DEVICE
         value: cpu
       - key: DEBUG
