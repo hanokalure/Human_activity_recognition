@@ -51,13 +51,18 @@ def main():
     # Import and run uvicorn
     try:
         import uvicorn
-        print("🚀 Starting Phase 5 API Server...")
-        print("📍 Server will be available at: http://localhost:8000")
-        print("📖 API docs: http://localhost:8000/docs")
-        print("🔄 Press Ctrl+C to stop")
         
-        # Use Render's PORT environment variable (default 10000)
-        port = int(os.environ.get("PORT", "10000"))
+        # Resolve the port robustly. Render sets $PORT; if it's missing or empty, default to 10000.
+        port_str = os.environ.get("PORT") or "10000"
+        try:
+            port = int(port_str)
+        except (TypeError, ValueError):
+            port = 10000
+        
+        print("🚀 Starting Phase 5 API Server...")
+        print(f"📍 Server will be available at: http://localhost:{port}")
+        print(f"📖 API docs: http://localhost:{port}/docs")
+        print("🔄 Press Ctrl+C to stop")
         
         uvicorn.run(
             "backend.main:app", 
