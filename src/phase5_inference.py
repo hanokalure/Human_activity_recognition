@@ -156,7 +156,9 @@ class Phase5Predictor:
         model_path = Path(model_path)
         logger.info(f"Loading Phase 5 model from: {model_path}")
 
-        checkpoint = torch.load(str(model_path), map_location=self.device)
+        # PyTorch 2.6+ defaults weights_only=True which breaks old pickled checkpoints.
+        # Explicitly set weights_only=False because this checkpoint is trusted.
+        checkpoint = torch.load(str(model_path), map_location=self.device, weights_only=False)
 
         # Read class mapping robustly (handle different key names)
         if 'class_to_idx' in checkpoint:
