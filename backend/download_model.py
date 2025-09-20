@@ -27,15 +27,14 @@ def download_model():
         print(f"📊 Model size: {model_path.stat().st_size / (1024*1024):.1f} MB")
         return str(model_path)
     
-    # Get model URL from environment
+    # Get model URL from environment, fallback to default if provided
     model_url = os.environ.get("MODEL_DOWNLOAD_URL")
     if not model_url:
-        print("❌ MODEL_DOWNLOAD_URL not set")
-        print("💡 Options:")
-        print("   1. Set MODEL_DOWNLOAD_URL environment variable")
-        print("   2. Upload model to GitHub Releases")
-        print("   3. Use a file hosting service (Google Drive, etc.)")
-        return None
+        # Fallback to known public Google Drive link (provided by user)
+        DEFAULT_FILE_ID = "1a6JVuSIGxlKTX1ejyDXinsr8AScODPf5"
+        model_url = f"https://drive.google.com/uc?export=download&id={DEFAULT_FILE_ID}"
+        print("⚠️  MODEL_DOWNLOAD_URL not set; using default Google Drive link")
+        print(f"🔗 {model_url}")
     
     print(f"📥 Downloading model from: {model_url}")
     

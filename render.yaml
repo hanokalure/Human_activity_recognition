@@ -19,9 +19,9 @@ services:
       - key: MODEL_PHASE
         value: phase5
       - key: PHASE5_MODEL_PATH
-        value: ../outputs/checkpoints/best_model.pth
+        value: /opt/render/project/src/models/phase5/phase5_best_model.pth
       - key: MODEL_DOWNLOAD_URL
-        value: "https://drive.google.com/uc?export=download&id=1a6JVuSIGxlKTX1ejyDXinsr8AScODPf5"
+        value: https://drive.google.com/uc?export=download&id=1a6JVuSIGxlKTX1ejyDXinsr8AScODPf5
       - key: INFERENCE_DEVICE
         value: cpu
       - key: DEBUG
